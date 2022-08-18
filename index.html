@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hangman</title>
+    <link rel="stylesheet" href="styles.css" type="text/css" />
+    <script src="apps.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <input class="wordInput" type="text" placeholder="Enter a secret word" />
+      <button class="submitButton">Submit</button>
+    </div>
+    <div class="container">
+      <input
+        class="guessInput hidden"
+        type="text"
+        placeholder="Enter a guess"
+      />
+      <button class="guessButton hidden">Guess</button>
+    </div>
+    <ol class="secretLettersDisplay"></ol>
+    <div class="lives"></div>
+    <div class="gallows">
+      <div class="leftPost post hidden"></div>
+      <div class="topPost post hidden"></div>
+      <div class="bottomPost post hidden"></div>
+      <div class="danglePost post hidden"></div>
+      <div class="topCornerPost post hidden"></div>
+      <div class="bottomCornerPost post hidden"></div>
+      <div class="head hide">
+        <div class="left-eye eye"></div>
+        <div class="right-eye eye"></div>
+        <div class="mouth"></div>
+      </div>
+      <div class="body hidden"></div>
+      <div class="leftArm arm hidden"></div>
+      <div class="rightArm arm hidden"></div>
+      <div class="leftLeg leg hidden"></div>
+      <div class="rightLeg leg hidden"></div>
+    </div>
+    <div class="gameOver hidden">GAME OVER</div>
+  </body>
+</html>
