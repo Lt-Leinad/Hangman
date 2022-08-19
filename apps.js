@@ -104,7 +104,6 @@ function guessChecker(guess) {
   revealCorrectLetterFunc();
   if (hiddenLetters.includes(guess)) {
     console.log(`Correct Guess`);
-    // gameWinningFunc();
   } else if (guess === secretWord) {
     gameWinningFunc();
     console.log(`You got the word!`);
