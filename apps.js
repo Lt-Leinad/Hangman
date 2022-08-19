@@ -17,26 +17,45 @@ const guessInput = document.querySelector(".guessInput");
 const secretLettersDisplay = document.querySelector(".secretLettersDisplay");
 const lives = document.querySelector(".lives");
 const gameOver = document.querySelector(".gameOver");
+const alphabet = document.querySelector(".alphabet");
+const gameWon = document.querySelector(".gameWon");
 let secretWord = "";
 let guess = "";
 let hiddenLetters;
 let letters;
 let allHiddenLetters;
 
+let guessesMade = []; //97 -> 122
+for (let i = 97; i <= 122; i++) {
+  guessesMade.push(String.fromCharCode(i));
+  let guessesMadeDisplay = document.createElement("li");
+  guessesMadeDisplay.innerHTML = String.fromCharCode(i);
+  guessesMadeDisplay.classList.add("guessesMadeDisplay");
+  alphabet.appendChild(guessesMadeDisplay);
+}
+
 //Submit secretWord
 submitButton.addEventListener("mousedown", submitSecretWordFunc);
 function submitSecretWordFunc() {
   //Set the secretWord to the input value
-  secretWord += wordInput.value;
-  //Create the array of individual letters
-  hiddenLetters = [...secretWord];
-  //Create the list elements to be displayed
-  for (let i = 0; i < hiddenLetters.length; i++) {
-    letters = document.createElement("li");
-    letters.innerHTML = hiddenLetters[i];
-    letters.classList.add(this.textContent);
-    letters.classList.add("hiddenText");
-    secretLettersDisplay.appendChild(letters);
+  let toCheck = /[a-z]{3}/gi;
+  if (!toCheck.test(wordInput.value) || wordInput.value.length > 13) {
+    alert(
+      `Your word must be a between 3 and 13 characters in length and only use letters`
+    );
+    wordInput.value = "";
+  } else {
+    secretWord += wordInput.value;
+    //Create the array of individual letters
+    hiddenLetters = [...secretWord];
+    //Create the list elements to be displayed
+    for (let i = 0; i < hiddenLetters.length; i++) {
+      letters = document.createElement("li");
+      letters.innerHTML = hiddenLetters[i];
+      letters.classList.add("hiddenText");
+      secretLettersDisplay.appendChild(letters);
+    }
+    removeSpacesUnderline();
   }
 }
 //Clear wordInput
@@ -56,11 +75,23 @@ let incorrectGuessCount = 13;
 lives.innerHTML = `${incorrectGuessCount} Hours Left`;
 guessButton.addEventListener("mousedown", guessFunc);
 function guessFunc() {
-  guess += guessInput.value;
-  guessChecker(guess);
-  livesCountFunc();
+  let toCheck = /[a-z]{1}/gi;
+  if (!toCheck.test(guessInput.value)) {
+    alert(`Your guess must be either 1 letter or the entire word`);
+    guessInput.value = "";
+  } else if (
+    guessInput.value.length !== 1 &&
+    guessInput.value.length !== hiddenLetters.length
+  ) {
+    alert(`Your guess must be either 1 letter or the entire word`);
+    guessInput.value = "";
+  } else {
+    guess += guessInput.value;
+    crossOffGuessedLetterFunc();
+    guessChecker(guess);
+    livesCountFunc();
+  }
 }
-
 //Clear the input
 function clearGuessInput() {
   guessInput.value = "";
@@ -70,9 +101,13 @@ function clearGuessInput() {
 guessButton.addEventListener("mouseup", clearGuessInput);
 //Check if the guess was correct
 function guessChecker(guess) {
+  revealCorrectLetterFunc();
   if (hiddenLetters.includes(guess)) {
     console.log(`Correct Guess`);
-    revealCorrectLetterFunc();
+    // gameWinningFunc();
+  } else if (guess === secretWord) {
+    gameWinningFunc();
+    console.log(`You got the word!`);
   } else {
     incorrectGuessCount--;
     buildingTheGallows[incorrectGuessCount]();
@@ -131,8 +166,6 @@ function livesCountFunc() {
   console.log(incorrectGuessCount);
 }
 
-const alphabet = document.createElement("li");
-
 function revealCorrectLetterFunc() {
   const letterToChange = document.querySelectorAll("li");
   for (let letters of letterToChange) {
@@ -140,4 +173,25 @@ function revealCorrectLetterFunc() {
       letters.classList.add("revealText");
     }
   }
+}
+
+function removeSpacesUnderline() {
+  const letterToChange = document.querySelectorAll("li");
+  for (let letters of letterToChange) {
+    if (letters.innerHTML === " ") {
+      letters.style.borderColor = "var(--hiddenText)";
+    }
+  }
+}
+
+function crossOffGuessedLetterFunc() {
+  const guessesToCross = document.querySelectorAll(".guessesMadeDisplay");
+  for (let letters of guessesToCross) {
+    if (letters.innerHTML === guess) {
+      letters.classList.add("lineThrough");
+    }
+  }
+}
+function gameWinningFunc() {
+  gameWon.classList.remove("hidden");
 }
