@@ -94,6 +94,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 2px solid black;
 }
 
 .eye {
@@ -144,6 +145,7 @@ body {
   position: relative;
   left: 4.25rem;
   top: 16.5rem;
+  border-right: 2px solid black;
   transform: rotate(165deg);
 }
 
@@ -154,6 +156,7 @@ body {
   position: relative;
   left: 3.25rem;
   top: 16.5rem;
+  border-left: 2px solid black;
   transform: rotate(15deg);
 }
 
@@ -164,6 +167,7 @@ body {
   position: relative;
   left: 5.25rem;
   top: 13.5rem;
+  border-right: 2px solid black;
   transform: rotate(165deg);
 }
 
@@ -175,16 +179,17 @@ body {
   left: 4.25rem;
   top: 13.5rem;
   transform: rotate(15deg);
+  border-left: 2px solid black;
 }
 
 /*/ //////////////////////////////////////*/
 
-li {
+.secretLettersDisplay > * {
   border-bottom: 2px solid black;
-  width: 3rem;
+  width: 3.5rem;
 }
 
-ol {
+.secretLettersDisplay {
   list-style: none;
   display: flex;
   justify-content: center;
@@ -195,7 +200,7 @@ ol {
   background-color: transparent;
   /* border: 2px solid black; */
   border-radius: 0;
-  width: 35rem;
+  width: 100%;
   height: 2rem;
 }
 
@@ -252,4 +257,25 @@ input {
   left: 20%;
   font-size: 5rem;
   background-color: rgb(132, 14, 14);
+}
+
+.gameWon {
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  font-size: 5rem;
+  background-color: rgb(34, 229, 13);
+}
+
+.alphabet {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+  font-size: 1rem;
+  margin-top: -1rem;
+}
+
+.lineThrough {
+  text-decoration: line-through;
+  color: grey;
 }
