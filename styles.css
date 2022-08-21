@@ -4,16 +4,16 @@
   --skinColor: rgb(252, 244, 214);
   --gallow-color: rgb(94, 69, 6);
   --rope-color: rgb(165, 108, 8);
+  --background-color: rgb(173, 247, 247);
 }
 
 html {
   background: radial-gradient(
     ellipse at left top,
     yellow 0%,
-    yellow 10%,
-    orange 15%,
-    orange 45%,
-    red 100%
+    rgb(253, 240, 52) 10%,
+    var(--background-color) 15%,
+    var(--background-color) 100%
   );
   overflow: clip;
 }
@@ -197,6 +197,9 @@ body {
 .secretLettersDisplay > * {
   border-bottom: 2px solid black;
   width: 3.5rem;
+  display: grid;
+  place-items: center;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .secretLettersDisplay {
@@ -293,4 +296,25 @@ input {
 
 .word-container {
   margin-top: 0.25rem;
+}
+
+.newGame,
+.postGameNewGameButton {
+  font-size: 0.75rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.guessesMadeDisplay {
+  position: relative;
+  right: 2.5rem;
+}
+
+.postGameNewGameButton {
+  font-size: 1.75rem;
+  position: relative;
+  margin: auto;
+  cursor: pointer;
+  width: 10rem;
+  height: 3rem;
 }
