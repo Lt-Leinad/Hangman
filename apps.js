@@ -29,7 +29,6 @@ let secretWord = "";
 let guess = "";
 let hiddenLetters;
 let letters;
-let allHiddenLetters;
 let sum = 0;
 let alreadyGuessedLetters = [];
 //for the list of guesses
@@ -259,6 +258,8 @@ function initiate() {
   }
   secretWord = "";
   wordInput.value = "";
+  guessInput.value = "";
+  guess = "";
   hiddenLetters = [];
   alreadyGuessedLetters = [];
   incorrectGuessCount = 13;
