@@ -57,7 +57,7 @@ function submitSecretWordFunc() {
     );
     wordInput.value = "";
   } else {
-    secretWord += wordInput.value.toUpperCase();
+    secretWord += wordInput.value.toUpperCase().trim();
     //Create the array of individual letters
     hiddenLetters = [...secretWord];
     //Create the list elements to be displayed
@@ -146,6 +146,10 @@ const buildingTheGallows = {
     if (secretWord) {
       document.removeEventListener("keyup", enterUp);
       document.removeEventListener("keydown", enterDown);
+      const letterToChange = document.querySelectorAll(".secretLetter");
+      for (let letters of letterToChange) {
+        letters.classList.add("revealText");
+      }
     }
   },
   1: function () {
@@ -265,6 +269,8 @@ function initiate() {
     letters.classList.remove("lineThrough");
   }
   removingTheGallows();
+  document.addEventListener("keyup", enterUp);
+  document.addEventListener("keydown", enterDown);
 }
 
 function removeAllChildNodes(parent) {
@@ -327,12 +333,3 @@ function addSpaces() {
 }
 
 postGameNewGameButton.addEventListener("click", initiate);
-// function newGameWithEnter() {
-//   if (
-//     wordContainer.classList.contains("hidden") &&
-//     guessContainer.classList.contains("hidden")
-//   ) {
-//     console.log("New Game");
-//     initiate();
-//   }
-// }
