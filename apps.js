@@ -138,10 +138,15 @@ function guessChecker(guess) {
 //building the gallows
 const buildingTheGallows = {
   0: function () {
+    //GAME OVER FUNCTION---------------------------------------
     head.classList.add("redHead");
     gameOver.classList.remove("hidden");
-    guessInput.classList.add("hidden");
-    guessButton.classList.add("hidden");
+    guessContainer.classList.add("hidden");
+    postGameNewGameButton.classList.remove("hidden");
+    if (secretWord) {
+      document.removeEventListener("keyup", enterUp);
+      document.removeEventListener("keydown", enterDown);
+    }
   },
   1: function () {
     rightLeg.classList.remove("hidden");
@@ -218,6 +223,8 @@ function gameWinningFunc() {
   gameWon.classList.remove("hidden");
   guessContainer.classList.add("hidden");
   postGameNewGameButton.classList.remove("hidden");
+  document.removeEventListener("keyup", enterUp);
+  document.removeEventListener("keydown", enterDown);
 }
 
 function checkItHasNotBeenGuessed() {
@@ -285,7 +292,8 @@ function removingTheGallows() {
   guessButton.classList.remove("hidden");
 }
 
-document.addEventListener("keydown", function (e) {
+document.addEventListener("keydown", enterDown);
+function enterDown(e) {
   if (e.key === `Enter`) {
     if (wordContainer.classList.contains("hidden")) {
       guessFunc();
@@ -293,9 +301,10 @@ document.addEventListener("keydown", function (e) {
       submitSecretWordFunc();
     }
   }
-});
+}
 
-document.addEventListener("keyup", function (e) {
+document.addEventListener("keyup", enterUp);
+function enterUp(e) {
   if (e.key === `Enter`) {
     if (wordContainer.classList.contains("hidden")) {
       clearGuessInput();
@@ -303,7 +312,7 @@ document.addEventListener("keyup", function (e) {
       clearSubmitInput();
     }
   }
-});
+}
 
 function addSpaces() {
   const spacesArr = [];
